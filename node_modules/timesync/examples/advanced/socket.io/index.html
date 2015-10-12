@@ -1,0 +1,32 @@
+<!-- include es5-shim and es5-shim when support for older browsers is needed -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.23.0/es6-shim.min.js"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/timesync/timesync.js"></script>
+<script>
+  var socket1 = io('http://localhost:8081');
+
+  var ts = timesync.create({
+    server: socket1,
+    interval: 5000
+  });
+
+  ts.on('sync', function (state) {
+    document.write('sync ' + state + '<br>');
+  });
+
+  ts.on('change', function (offset) {
+    document.write('changed offset: ' + offset + ' ms<br>');
+  });
+
+  ts.send = function (socket, data) {
+    //console.log('send', data);
+    socket.emit('timesync', data);
+  };
+
+  socket1.on('timesync', function (data) {
+    //console.log('receive', data);
+    ts.receive(null, data);
+  });
+</script>
