@@ -1,5 +1,5 @@
 var express = require('express'),
-    wine = require('./routes/wines');
+    Employee = require('./routes/Employee');
 var timrsyncServer=require('timesync/server');
  var amqp = require('amqp');
 var trans=require('./callApi');
@@ -30,13 +30,13 @@ app.configure(function () {
 
 
 
-app.get('/wines', wine.findAll);
+app.get('/Employees', Employee.findAll);
 app.get('/Transliteration',trans.findAll);
-app.get('/wines/Transliteration', wine.findAllTrans);
-app.get('/wines/:id', wine.findById);
-app.post('/wines', wine.addWine);
-app.put('/wines/:id', wine.updateWine);
-app.delete('/wines/:id', wine.deleteWine);
+app.get('/Employees/Transliteration', Employee.findAllTrans);
+app.get('/Employees/:id', Employee.findById);
+app.post('/Employees', Employee.addEmployee);
+app.put('/Employees/:id', Employee.updateEmployee);
+app.delete('/Employees/:id', Employee.deleteEmployee);
 
 app.listen(3000);
 console.log('Listening on port 3000...');

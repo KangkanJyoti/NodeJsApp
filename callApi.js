@@ -54,6 +54,8 @@ var client = new Client();
 // set content-type header and data as json in args parameter 
 
 exports.findAll = function(req, res) {
+	
+	
     var args = {
   data: {"inArray": [
    "Hello"
